@@ -1,3 +1,3 @@
-# Project Description: Creating Your First Flask Application
+# Project Description: Rendering Pages in Flask Using Jinja
 - This project's goal to build a Flask Application
-https://hackersandslackers.com/your-first-flask-application
+https://hackersandslackers.com/flask-jinja-templates
