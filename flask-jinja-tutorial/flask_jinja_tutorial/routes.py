@@ -11,9 +11,9 @@ app = Flask(__name__)
 def home():
     """Landing page."""
     nav = [
-        {'name': 'Home', 'url': 'https://example.com/1'},
-        {'name': 'About', 'url': 'https://example.com/2'},
-        {'name': 'Pics', 'url': 'https://example.com/3'}
+        {'name': 'Home', 'url': 'https://hackersandslackers.com/flask-jinja-templates'},
+        {'name': 'About', 'url': 'https://hackersandslackers.com/flask-jinja-templates'},
+        {'name': 'Pics', 'url': 'https://hackersandslackers.com/flask-jinja-templates'}
     ]
     return render_template(
         'home.html',
