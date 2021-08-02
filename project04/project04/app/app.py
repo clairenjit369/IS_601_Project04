@@ -137,7 +137,7 @@ def login():
 
 
 # API Endpoints are below...
-# View all Players
+# View all Residents
 @app.route('/api/v1/players', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
@@ -148,7 +148,7 @@ def api_browse() -> str:
     return resp
 
 
-# View a single Player record by Id
+# View a single Resident record by Id
 @app.route('/api/v1/player/<int:player_id>', methods=['GET'])
 def api_retrieve(player_id) -> str:
     cursor = mysql.get_db().cursor()
@@ -159,7 +159,7 @@ def api_retrieve(player_id) -> str:
     return resp
 
 
-# Add a New Player
+# Add a New Resident
 @app.route('/api/v1/player', methods=['POST'])
 def api_add() -> str:
     content = request.json
@@ -167,14 +167,14 @@ def api_add() -> str:
     input_data = (content['fld_Name'], content['fld_Team'],
                   content['fld_Position'], content['fld_Age'],
                   content['fld_Height_inches'], content['fld_Weight_lbs'])
-    sql_insert_query = """INSERT INTO addresses (fld_Name,fld_Team,fld_Position,fld_Age,fld_Height_inches,fld_Weight_lbs) VALUES (%s, %s,%s, %s,%s, %s) """
+    sql_insert_query = """INSERT INTO addresses (Fname, Lname, Address, City, State, ZipCode) VALUES (%s, %s,%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, input_data)
     mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
 
-# Update an existing Player by Id
+# Update an existing Resident by Id
 @app.route('/api/v1/player/<int:player_id>', methods=['PUT'])
 def api_edit(player_id) -> str:
     cursor = mysql.get_db().cursor()
@@ -182,19 +182,19 @@ def api_edit(player_id) -> str:
     input_data = (content['fld_Name'], content['fld_Team'],
                   content['fld_Position'], content['fld_Age'],
                   content['fld_Height_inches'], content['fld_Weight_lbs'], player_id)
-    sql_update_query = """UPDATE tblMlbPlayersImport t SET t.fld_Name = %s, t.fld_Team = %s, t.fld_Position = 
-        %s, t.fld_Age = %s, t.fld_Height_inches = %s, t.fld_Weight_lbs = %s WHERE t.id = %s """
+    sql_update_query = """UPDATE addresses t SET t.Fname = %s, t.Lname = %s, t.Address = 
+        %s, t.City = %s, t.State = %s, t.ZipCode = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, input_data)
     mysql.get_db().commit()
     resp = Response(status=200, mimetype='application/json')
     return resp
 
 
-# Delete an existing Player by Id
+# Delete an existing Resident by Id
 @app.route('/api/v1/player/<int:player_id>', methods=['DELETE'])
 def api_delete(player_id) -> str:
     cursor = mysql.get_db().cursor()
-    sql_delete_query = """DELETE FROM tblMlbPlayersImport WHERE id = %s """
+    sql_delete_query = """DELETE FROM addresses WHERE id = %s """
     cursor.execute(sql_delete_query, player_id)
     mysql.get_db().commit()
     resp = Response(status=200, mimetype='application/json')
@@ -202,33 +202,33 @@ def api_delete(player_id) -> str:
 
 
 # Jinga Template Views are below...
-# Home Page - View all Players
+# Home Page - View all Residents
 @app.route('/', methods=['GET'])
 def index():
     user = {'username': 'MLB Players Project'}
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMlbPlayersImport')
+    cursor.execute('SELECT * FROM addresses')
     result = cursor.fetchall()
     return render_template('index.html', title='Home', user=user, players=result)
 
 
-# View Player by Id
+# View Residents by Id
 @app.route('/view/<int:player_id>', methods=['GET'])
 def record_view(player_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMlbPlayersImport WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
     result = cursor.fetchall()
-    return render_template('view.html', title='View Player', player=result[0])
+    return render_template('view.html', title='View Residents', player=result[0])
 
 
-# Add New Player by Id Page
+# Add New Resident by Id Page
 @app.route('/players/new', methods=['GET'])
 @login_required
 def form_insert_get():
-    return render_template('new.html', title='New Player Form')
+    return render_template('new.html', title='New Resident Form')
 
 
-# Add New Player by Id Form
+# Add New Resident by Id Form
 @app.route('/players/new', methods=['POST'])
 @login_required
 def form_insert_post():
@@ -236,23 +236,23 @@ def form_insert_post():
     input_data = (request.form.get('fldPlayerName'), request.form.get('fldTeamName'),
                   request.form.get('fldPosition'), request.form.get('fldAge'),
                   request.form.get('fldHeight'), request.form.get('fldWeight'))
-    sql_insert_query = """INSERT INTO tblMlbPlayersImport (fld_Name,fld_Team,fld_Position,fld_Age,fld_Height_inches,fld_Weight_lbs) VALUES (%s, %s,%s, %s,%s, %s) """
+    sql_insert_query = """INSERT INTO addresses (Fname, Lname, Address, City, State, ZipCode) VALUES (%s, %s,%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, input_data)
     mysql.get_db().commit()
     return redirect("/", code=302)
 
 
-# Edit Player by Id Page
+# Edit Resident by Id Page
 @app.route('/edit/<int:player_id>', methods=['GET'])
 @login_required
 def form_edit_get(player_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMlbPlayersImport WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
     result = cursor.fetchall()
     return render_template('edit.html', title='Edit Form', player=result[0])
 
 
-# Edit Player by Id Form
+# Edit Resident by Id Form
 @app.route('/edit/<int:player_id>', methods=['POST'])
 @login_required
 def form_update_post(player_id):
@@ -260,19 +260,19 @@ def form_update_post(player_id):
     input_data = (request.form.get('fldPlayerName'), request.form.get('fldTeamName'),
                   request.form.get('fldPosition'), request.form.get('fldAge'),
                   request.form.get('fldHeight'), request.form.get('fldWeight'), player_id)
-    sql_update_query = """UPDATE tblMlbPlayersImport t SET t.fld_Name = %s, t.fld_Team = %s, t.fld_Position = 
-    %s, t.fld_Age = %s, t.fld_Height_inches = %s, t.fld_Weight_lbs = %s WHERE t.id = %s """
+    sql_update_query = """UPDATE addresses t SET t.Fname = %s, t.Lname = %s, t.Address = 
+        %s, t.City = %s, t.State = %s, t.ZipCode = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, input_data)
     mysql.get_db().commit()
     return redirect("/", code=302)
 
 
-# Delete Player by Id Form
+# Delete Residents by Id Form
 @app.route('/delete/<int:player_id>', methods=['POST'])
 @login_required
 def form_delete_post(player_id):
     cursor = mysql.get_db().cursor()
-    sql_delete_query = """DELETE FROM tblMlbPlayersImport WHERE id = %s """
+    sql_delete_query = """DELETE FROM addresses WHERE id = %s """
     cursor.execute(sql_delete_query, player_id)
     mysql.get_db().commit()
     return redirect("/", code=302)
