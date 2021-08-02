@@ -17,3 +17,9 @@ services:
     container_name: "Flask_App_3"
     ports:
       - "5002:5002"
+
+  app4:
+    build: ./app4
+    container_name: "Flask_App_4"
+    ports:
+      - "5003:5003"
