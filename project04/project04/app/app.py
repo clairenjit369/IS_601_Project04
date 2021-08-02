@@ -78,7 +78,7 @@ def signup():
             # Add User to DB
             insert_cursor = mysql.get_db().cursor()
             input_data = (name, email, hashed_password)
-            sql_insert_query = """INSERT INTO `addresses` (name, email, password) VALUES (%s, %s, %s) """
+            sql_insert_query = """INSERT INTO `addresses` (Fname, Lname, email, password) VALUES (%s, %s, %s) """
             insert_cursor.execute(sql_insert_query, input_data)
             mysql.get_db().commit()
 
@@ -141,7 +141,7 @@ def login():
 @app.route('/api/v1/players', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMlbPlayersImport')
+    cursor.execute('SELECT * FROM addresses')
     result = cursor.fetchall()
     json_result = json.dumps(result);
     resp = Response(json_result, status=200, mimetype='application/json')
@@ -152,7 +152,7 @@ def api_browse() -> str:
 @app.route('/api/v1/player/<int:player_id>', methods=['GET'])
 def api_retrieve(player_id) -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM tblMlbPlayersImport WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
     result = cursor.fetchall()
     json_result = json.dumps(result);
     resp = Response(json_result, status=200, mimetype='application/json')
@@ -167,7 +167,7 @@ def api_add() -> str:
     input_data = (content['fld_Name'], content['fld_Team'],
                   content['fld_Position'], content['fld_Age'],
                   content['fld_Height_inches'], content['fld_Weight_lbs'])
-    sql_insert_query = """INSERT INTO tblMlbPlayersImport (fld_Name,fld_Team,fld_Position,fld_Age,fld_Height_inches,fld_Weight_lbs) VALUES (%s, %s,%s, %s,%s, %s) """
+    sql_insert_query = """INSERT INTO addresses (fld_Name,fld_Team,fld_Position,fld_Age,fld_Height_inches,fld_Weight_lbs) VALUES (%s, %s,%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, input_data)
     mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
