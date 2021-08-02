@@ -7,6 +7,8 @@ WORKDIR /app
 COPY requirements.txt /app
 RUN pip install  -r requirements.txt --upgrade pip
 
+
+
 ENV MYSQL_DATABASE_HOST=db
 ENV MYSQL_DATABASE_USER=root
 ENV MYSQL_DATABASE_PASSWORD=root
