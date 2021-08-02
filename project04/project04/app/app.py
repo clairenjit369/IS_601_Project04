@@ -138,7 +138,7 @@ def login():
 
 # API Endpoints are below...
 # View all Residents
-@app.route('/api/v1/players', methods=['GET'])
+@app.route('/api/v1/addresses', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM addresses')
@@ -149,10 +149,10 @@ def api_browse() -> str:
 
 
 # View a single Resident record by Id
-@app.route('/api/v1/player/<int:player_id>', methods=['GET'])
-def api_retrieve(player_id) -> str:
+@app.route('/api/v1/addresses/<int:resident_id>', methods=['GET'])
+def api_retrieve(resident_id) -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', resident_id)
     result = cursor.fetchall()
     json_result = json.dumps(result);
     resp = Response(json_result, status=200, mimetype='application/json')
@@ -160,7 +160,7 @@ def api_retrieve(player_id) -> str:
 
 
 # Add a New Resident
-@app.route('/api/v1/player', methods=['POST'])
+@app.route('/api/v1/addresses', methods=['POST'])
 def api_add() -> str:
     content = request.json
     cursor = mysql.get_db().cursor()
@@ -175,13 +175,13 @@ def api_add() -> str:
 
 
 # Update an existing Resident by Id
-@app.route('/api/v1/player/<int:player_id>', methods=['PUT'])
-def api_edit(player_id) -> str:
+@app.route('/api/v1/addresses/<int:resident_id>', methods=['PUT'])
+def api_edit(resident_id) -> str:
     cursor = mysql.get_db().cursor()
     content = request.json
     input_data = (content['fld_Name'], content['fld_Team'],
                   content['fld_Position'], content['fld_Age'],
-                  content['fld_Height_inches'], content['fld_Weight_lbs'], player_id)
+                  content['fld_Height_inches'], content['fld_Weight_lbs'], resident_id)
     sql_update_query = """UPDATE addresses t SET t.Fname = %s, t.Lname = %s, t.Address = 
         %s, t.City = %s, t.State = %s, t.ZipCode = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, input_data)
@@ -191,11 +191,11 @@ def api_edit(player_id) -> str:
 
 
 # Delete an existing Resident by Id
-@app.route('/api/v1/player/<int:player_id>', methods=['DELETE'])
-def api_delete(player_id) -> str:
+@app.route('/api/v1/addresses/<int:resident_id>', methods=['DELETE'])
+def api_delete(resident_id) -> str:
     cursor = mysql.get_db().cursor()
     sql_delete_query = """DELETE FROM addresses WHERE id = %s """
-    cursor.execute(sql_delete_query, player_id)
+    cursor.execute(sql_delete_query, resident_id)
     mysql.get_db().commit()
     resp = Response(status=200, mimetype='application/json')
     return resp
@@ -205,37 +205,37 @@ def api_delete(player_id) -> str:
 # Home Page - View all Residents
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'MLB Players Project'}
+    user = {'username': 'Resident Project'}
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM addresses')
     result = cursor.fetchall()
-    return render_template('index.html', title='Home', user=user, players=result)
+    return render_template('index.html', title='Home', user=user, residents=result)
 
 
 # View Residents by Id
-@app.route('/view/<int:player_id>', methods=['GET'])
-def record_view(player_id):
+@app.route('/view/<int:resident_id>', methods=['GET'])
+def record_view(resident_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', resident_id)
     result = cursor.fetchall()
-    return render_template('view.html', title='View Residents', player=result[0])
+    return render_template('view.html', title='View Residents', residents=result[0])
 
 
 # Add New Resident by Id Page
-@app.route('/players/new', methods=['GET'])
+@app.route('/residents/new', methods=['GET'])
 @login_required
 def form_insert_get():
     return render_template('new.html', title='New Resident Form')
 
 
 # Add New Resident by Id Form
-@app.route('/players/new', methods=['POST'])
+@app.route('/residents/new', methods=['POST'])
 @login_required
 def form_insert_post():
     cursor = mysql.get_db().cursor()
-    input_data = (request.form.get('fldPlayerName'), request.form.get('fldTeamName'),
-                  request.form.get('fldPosition'), request.form.get('fldAge'),
-                  request.form.get('fldHeight'), request.form.get('fldWeight'))
+    input_data = (request.form.get('Fname'), request.form.get('Lname'),
+                  request.form.get('Address'), request.form.get('City'),
+                  request.form.get('State'), request.form.get('ZipCode'))
     sql_insert_query = """INSERT INTO addresses (Fname, Lname, Address, City, State, ZipCode) VALUES (%s, %s,%s, %s,%s, %s) """
     cursor.execute(sql_insert_query, input_data)
     mysql.get_db().commit()
@@ -243,23 +243,23 @@ def form_insert_post():
 
 
 # Edit Resident by Id Page
-@app.route('/edit/<int:player_id>', methods=['GET'])
+@app.route('/edit/<int:resident_id>', methods=['GET'])
 @login_required
-def form_edit_get(player_id):
+def form_edit_get(resident_id):
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM addresses WHERE id=%s', player_id)
+    cursor.execute('SELECT * FROM addresses WHERE id=%s', resident_id)
     result = cursor.fetchall()
-    return render_template('edit.html', title='Edit Form', player=result[0])
+    return render_template('edit.html', title='Edit Form', resident=result[0])
 
 
 # Edit Resident by Id Form
-@app.route('/edit/<int:player_id>', methods=['POST'])
+@app.route('/edit/<int:resident_id>', methods=['POST'])
 @login_required
-def form_update_post(player_id):
+def form_update_post(resident_id):
     cursor = mysql.get_db().cursor()
-    input_data = (request.form.get('fldPlayerName'), request.form.get('fldTeamName'),
-                  request.form.get('fldPosition'), request.form.get('fldAge'),
-                  request.form.get('fldHeight'), request.form.get('fldWeight'), player_id)
+    input_data = (request.form.get('Fname'), request.form.get('Lname'),
+                  request.form.get('Address'), request.form.get('City'),
+                  request.form.get('State'), request.form.get('ZipCode'), resident_id)
     sql_update_query = """UPDATE addresses t SET t.Fname = %s, t.Lname = %s, t.Address = 
         %s, t.City = %s, t.State = %s, t.ZipCode = %s WHERE t.id = %s """
     cursor.execute(sql_update_query, input_data)
@@ -268,12 +268,12 @@ def form_update_post(player_id):
 
 
 # Delete Residents by Id Form
-@app.route('/delete/<int:player_id>', methods=['POST'])
+@app.route('/delete/<int:resident_id>', methods=['POST'])
 @login_required
-def form_delete_post(player_id):
+def form_delete_post(resident_id):
     cursor = mysql.get_db().cursor()
     sql_delete_query = """DELETE FROM addresses WHERE id = %s """
-    cursor.execute(sql_delete_query, player_id)
+    cursor.execute(sql_delete_query, resident_id)
     mysql.get_db().commit()
     return redirect("/", code=302)
 
