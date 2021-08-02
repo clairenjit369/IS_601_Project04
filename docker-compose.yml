@@ -50,6 +50,14 @@ services:
     ports:
       - "8081:8081"
 
+  project04:
+    build: ./project04/project04/app
+    container_name: "addressBook"
+    depends_on:
+      - db
+    ports:
+      - "8082:8082"
+
   db:
       image: mysql:5.7
       container_name: "MySQL_Database"
@@ -58,4 +66,4 @@ services:
       environment:
         MYSQL_ROOT_PASSWORD: root
       volumes:
-        - ./my-final-project/my_final_project/db:/docker-entrypoint-initdb.d/:ro
+        - ./project04/project04/db:/docker-entrypoint-initdb.d/:ro
