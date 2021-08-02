@@ -1,3 +1,3 @@
-# Project Description: Configuring Your Flask App
+# Project Description: Demystifying Flask’s Application Factory
 - This project's goal to build a Flask Application
-https://hackersandslackers.com/configure-flask-applications
+https://hackersandslackers.com/flask-application-factory
