@@ -42,16 +42,17 @@ services:
     ports:
       - "5008:5008"
 
-  final:
+  project04:
     build: ./project04/project04/app
-    container_name: "My_Final_Project"
+    container_name: "project04"
     depends_on:
       - db
     ports:
-      - "8080:8080"
+      - "8081:8081"
+
   db:
     image: mysql:5.7
-    container_name: "MySQL_Database"
+    container_name: "MySQL_Database3"
     ports:
       - "33000:3306"
     environment:
