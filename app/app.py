@@ -8,12 +8,7 @@ app = Flask(__name__)
 
 
 
-app = Flask(
-    __name__,
-    instance_relative_config=False,
-    template_folder="templates",
-    static_folder="static"
-)
+app = Flask( __name__, instance_relative_config=False, template_folder="templates", static_folder="static")
 
 
 @app.route("/logic")

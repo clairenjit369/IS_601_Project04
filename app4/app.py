@@ -3,12 +3,7 @@ from forms import SignupForm
 from flask import g
 
 
-app = Flask(
-    __name__,
-    template_folder="templates",
-    static_folder="static",
-    static_url_path=''
-)
+app = Flask( __name__, template_folder="templates", static_folder="static", static_url_path='')
 app.config.from_object('config.Config')
 
 
@@ -93,6 +88,7 @@ def signup_page():
     #         flash('A user exists with that email address.')
     #         return redirect(url_for('auth_bp.signup_page'))
     # GET: Serve Sign-up page
+
     return render_template(
         '/signup.html',
         title='Create an Account | Flask-Login Tutorial.',
@@ -117,8 +113,9 @@ def rm_test_value():
         return "There is NO g-value"
 
 
-# @app.teardown_testvalue
+
 def remove_test_value():
+    # @app.teardown_testvalue
     test_value = g.pop('test_value', None)
     return test_value + " being removed"
 
