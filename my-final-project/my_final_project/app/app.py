@@ -31,7 +31,7 @@ def load_user(user_id):
     if user_id is not None:
         # Get User by Email
         cursor = mysql.get_db().cursor()
-        cursor.execute('SELECT * FROM `addresses` WHERE id = %s', user_id)
+        cursor.execute('SELECT * FROM `flasklogin-users` WHERE id = %s', user_id)
         result = cursor.fetchall()
         if len(result) != 0:
             my_id = result[0]['id']
@@ -66,7 +66,7 @@ def signup():
 
         # Get User by Email
         cursor = mysql.get_db().cursor()
-        cursor.execute('SELECT * FROM `addresses` WHERE email = %s', email)
+        cursor.execute('SELECT * FROM `flasklogin-users` WHERE email = %s', email)
         result = cursor.fetchall()
         if len(result) == 0:  # User does not exist yet
             # Encrypt Password
@@ -78,13 +78,13 @@ def signup():
             # Add User to DB
             insert_cursor = mysql.get_db().cursor()
             input_data = (name, email, hashed_password)
-            sql_insert_query = """INSERT INTO `addresses` (name, email, password) VALUES (%s, %s, %s) """
+            sql_insert_query = """INSERT INTO `flasklogin-users` (name, email, password) VALUES (%s, %s, %s) """
             insert_cursor.execute(sql_insert_query, input_data)
             mysql.get_db().commit()
 
             # Add User to session
             cursor = mysql.get_db().cursor()
-            cursor.execute('SELECT * FROM `addresses` WHERE email = %s', email)
+            cursor.execute('SELECT * FROM `flasklogin-users` WHERE email = %s', email)
             result = cursor.fetchall()
             user_id = result[0]['id']
             user = User(user_id, name, email, hashed_password)
@@ -117,7 +117,7 @@ def login():
 
         # Get User by Email and Hashed Password
         cursor = mysql.get_db().cursor()
-        cursor.execute('SELECT * FROM `addresses` WHERE email = %s AND password = %s', (email, hashed_password))
+        cursor.execute('SELECT * FROM `flasklogin-users` WHERE email = %s AND password = %s', (email, hashed_password))
         result = cursor.fetchall()
         if len(result) != 0:  # User found
             # Add User to session

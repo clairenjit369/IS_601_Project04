@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 class User(UserMixin):
 
-    __tablename__ = 'addresses'
+    __tablename__ = 'flasklogin-users'
 
     def __init__(self, my_id, name, email, password):
         self.id = my_id

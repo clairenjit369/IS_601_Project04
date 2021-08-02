@@ -42,20 +42,20 @@ services:
     ports:
       - "5008:5008"
 
-  project04:
-    build: ./project04/project04/app
-    container_name: "project04"
+  final:
+    build: ./my-final-project/my_final_project/app
+    container_name: "My_Final_Project"
     depends_on:
       - db
     ports:
-      - "8081:8081"
+      - "8080:8080"
 
   db:
-    image: mysql:5.7
-    container_name: "MySQL_Database3"
-    ports:
-      - "33000:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./project04/project04/db:/docker-entrypoint-initdb.d/:ro
+      image: mysql:5.7
+      container_name: "MySQL_Database"
+      ports:
+        - "33000:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - ./my-final-project/my_final_project/db:/docker-entrypoint-initdb.d/:ro
