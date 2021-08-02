@@ -41,3 +41,20 @@ services:
     container_name: "Flask_App_9"
     ports:
       - "5008:5008"
+
+  final:
+    build: ./project04/project04/app
+    container_name: "My_Final_Project"
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+  db:
+    image: mysql:5.7
+    container_name: "MySQL_Database"
+    ports:
+      - "33000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./project04/project04/db:/docker-entrypoint-initdb.d/:ro
