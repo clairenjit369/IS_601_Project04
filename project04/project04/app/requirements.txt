@@ -1,0 +1,12 @@
+Flask
+flask-mysql
+simplejson
+python-dotenv
+mysql-connector-python
+mysqlclient
+flask-login
+flask-sqlalchemy
+flask-wtf
+wtforms
+email-validator
+werkzeug
