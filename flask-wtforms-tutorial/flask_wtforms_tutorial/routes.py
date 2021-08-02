@@ -24,7 +24,6 @@ def contact():
         title="Contact Form"
     )
 
-
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     """User sign-up form for account creation."""

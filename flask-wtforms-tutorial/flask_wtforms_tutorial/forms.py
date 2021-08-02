@@ -24,9 +24,11 @@ class ContactForm(FlaskForm):
             Length(min=4, message=('Your message is too short.'))
         ]
     )
-    # recaptcha = RecaptchaField()
-    submit = SubmitField('Submit')
 
+    submit = SubmitField('Submit')
+    # recaptcha = RecaptchaField()
+
+##
 
 class SignupForm(FlaskForm):
     """Sign up for a user account."""
