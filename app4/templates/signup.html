@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{title}}</title>
+        <title>title</title>
         <link
             rel="stylesheet"
             href="{{ url_for('static', filename='css/forms.css') }}"
@@ -9,7 +9,7 @@
         />
     </head>
     <body>
-        <h1>{{title}}</h1>
+        <h1>title</h1>
 
         <form method="POST" action="/signup">
             {{ form.csrf_token }}
