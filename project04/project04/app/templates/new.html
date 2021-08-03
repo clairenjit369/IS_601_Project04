@@ -1,35 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
-<form action="/players/new" method="POST">
+
+<form action="/residents/new" method="POST">
     <div class="row">
         <div class="col">
-            <label for="fldPlayerName">Player Name</label>
-            <input id="fldPlayerName" type="text" class="form-control" placeholder="John Smith" name="fldPlayerName">
+            <label for="Fname">Resident First Name</label>
+            <input id="Fname" type="text" class="form-control" placeholder="Isabel" name="Fname">
         </div>
         <div class="col">
-            <label for="fldTeamName">Team Name</label>
-            <input id="fldTeamName" type="text" class="form-control" placeholder="Yankees" name="fldTeamName">
+            <label for="Lname">Resident Last Name</label>
+            <input id="Lname" type="text" class="form-control" placeholder="Walters" name="Lname">
         </div>
     </div>
         <div class="row">
         <div class="col">
-            <label for="fldPosition">Position</label>
-            <input id="fldPosition" type="text" class="form-control" placeholder="Pitcher" name="fldPosition">
+            <label for="Address">Address</label>
+            <input id="Address" type="text" class="form-control" placeholder="380 Wilson Lane" name="Address">
         </div>
         <div class="col">
-            <label for="fldAge">Age</label>
-            <input id="fldAge" type="number" class="form-control" placeholder="33" name="fldAge">
+            <label for="State">State</label>
+            <input id="State" type="text" class="form-control" placeholder="PA" name="State">
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-            <label for="fldHeight">Height (inches)</label>
-            <input id="fldHeight" type="number" class="form-control" placeholder="72" name="fldHeight">
+            <label for="City">City</label>
+            <input id="City" type="text" class="form-control" placeholder="Easton" name="City">
         </div>
         <div class="col">
-            <label for="fldWeight">Weight (lbs)</label>
-            <input id="fldWeight" type="number" class="form-control" placeholder="185" name="fldWeight">
+            <label for="ZipCode">ZipCode</label>
+            <input id="ZipCode" type="number" class="form-control" placeholder="18042" name="ZipCode">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="Email">Email</label>
+            <input id="Email" type="text" class="form-control" placeholder="isabelwpa@gmail.com" name="Email">
+        </div>
+        <div class="col">
+            <label for="Password">Password</label>
+            <input id="Password" type="text" class="form-control" placeholder="123456789" name="Password">
         </div>
     </div>
 
