@@ -42,13 +42,6 @@ services:
     ports:
       - "5008:5008"
 
-  final:
-    build: ./my-final-project/my_final_project/app
-    container_name: "My_Final_Project"
-    depends_on:
-      - db
-    ports:
-      - "8081:8081"
 
   project04:
     build: ./project04/project04/app
