@@ -2,9 +2,9 @@ version: "2"
 services:
   app:
     build: ./app
-    container_name: "Flask_App3"
+    container_name: "Flask_App"
     ports:
-      - "5000:5000"
+      - "5006:5006"
 
   app2:
     build: ./flask-jinja-tutorial/flask_jinja_tutorial
@@ -45,17 +45,17 @@ services:
 
   project04:
     build: ./project04/project04/app
-    container_name: "addressBook"
+    container_name: "addressBook2"
     depends_on:
       - db
     ports:
-      - "8081:8081"
+      - "5000:5000"
 
   db:
       image: mysql:5.7
-      container_name: "MySQL_Database"
+      container_name: "MySQL_Database3"
       ports:
-        - "32000"
+        - "33000:3306"
       environment:
         MYSQL_ROOT_PASSWORD: root
       volumes:
