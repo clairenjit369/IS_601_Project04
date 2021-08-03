@@ -14,6 +14,8 @@ The goal of this project is to create a flask application that is based on the t
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/06.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/01.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/02.png) <br>
+![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/08.png) <br>
+![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/09.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/03.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/04.png) <br>
 
