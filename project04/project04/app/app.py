@@ -1,14 +1,15 @@
-from typing import List, Dict
 import simplejson as json
-from flask import Flask, request, Response, redirect, render_template, url_for, Blueprint, flash
+from flask import Flask, request, Response, redirect, render_template, url_for, flash
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, login_required
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, login_required, logout_user
+from werkzeug.security import generate_password_hash
 from models import User
 
 from forms import SignupForm, LoginForm
+
+
 
 
 app = Flask(__name__)
@@ -276,6 +277,31 @@ def form_delete_post(resident_id):
     cursor.execute(sql_delete_query, resident_id)
     mysql.get_db().commit()
     return redirect("/", code=302)
+
+@app.route("/logout")
+@login_required
+def logout():
+    """User log-out logic."""
+    logout_user()
+    return render_template('login.jinja2')
+
+
+@app.errorhandler(404)
+def not_found(arg):
+    """Page not found."""
+    return render_template('404.html', title='404 error.', message='Page Not Found')
+
+
+@app.errorhandler(400)
+def bad_request():
+    """Bad request."""
+    return render_template('400.html', title='400 error.', message='Bad request.  Page Not Found')
+
+
+@app.errorhandler(500)
+def server_error(arg):
+    """Internal server error."""
+    return render_template('500.html', message='Server Error')
 
 
 if __name__ == '__main__':

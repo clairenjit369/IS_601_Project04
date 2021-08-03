@@ -15,7 +15,7 @@ ENV MYSQL_DATABASE_PASSWORD=root
 ENV MYSQL_DATABASE_PORT=3306
 ENV MYSQL_DATABASE_DB=addressBook
 
-ENV SQLALCHEMY_DATABASE_URI=mysql://root:root@localhost:3306/addressBook
+ENV SQLALCHEMY_DATABASE_URI=mysql://root:root@localhost:3306/addressBook2
 
 COPY . /app
 
