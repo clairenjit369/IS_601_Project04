@@ -1,5 +1,5 @@
-CREATE DATABASE addressBook2;
-use addressBook2;
+CREATE DATABASE addressBook;
+use addressBook;
 
 
 CREATE TABLE IF NOT EXISTS addresses (
