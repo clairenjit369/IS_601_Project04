@@ -73,7 +73,7 @@ def signup():
             # Encrypt Password
             hashed_password = generate_password_hash(
                 password,
-                method='sha256'
+                method='123456'
             )
 
             # Add User to DB
