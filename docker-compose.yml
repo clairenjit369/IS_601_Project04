@@ -4,7 +4,7 @@ services:
     build: ./app
     container_name: "Flask_App"
     ports:
-      - "5006:5006"
+      - "5000:5000"
 
   app2:
     build: ./flask-jinja-tutorial/flask_jinja_tutorial
@@ -45,11 +45,11 @@ services:
 
   project04:
     build: ./project04/project04/app
-    container_name: "addressBook2"
+    container_name: "addressBook"
     depends_on:
       - db
     ports:
-      - "5000:5000"
+      - "8080:8080"
 
   db:
       image: mysql:5.7

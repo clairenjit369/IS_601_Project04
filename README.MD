@@ -11,8 +11,11 @@ The goal of this project is to create a flask application that is based on the t
 - When you are done, run "docker-compose down". This will stop all the containers and remove the images. 
 
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/query.png) <br>
-![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/chrome01.jpg) <br>
+![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/05.png) <br>
+![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/06.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/01.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/02.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/03.png) <br>
 ![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/04.png) <br>
+
+![query](https://github.com/clairenjit369/IS_601_Project04/blob/master/07.png) <br>
