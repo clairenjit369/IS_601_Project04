@@ -1,5 +1,47 @@
 version: "2"
 services:
+  app:
+    build: ./app
+    container_name: "Flask_App3"
+    ports:
+      - "5000:5000"
+
+  app2:
+    build: ./flask-jinja-tutorial/flask_jinja_tutorial
+    container_name: "Flask_App_2"
+    ports:
+      - "5001:5001"
+
+  app3:
+    build: ./flask-wtforms-tutorial/flask_wtforms_tutorial
+    container_name: "Flask_App_3"
+    ports:
+      - "5002:5002"
+
+  app4:
+    build: part04
+    container_name: "Flask_App_4"
+    ports:
+      - "5003:5003"
+
+  app5:
+    build: part05
+    container_name: "Flask_App_5"
+    ports:
+      - "5004:5004"
+
+  app6:
+    build: part06
+    container_name: "Flask_App_6"
+    ports:
+      - "5005:5005"
+
+  app9:
+    build: ./flask-sqlalchemy-tutorial/flask_sqlalchemy_tutorial
+    container_name: "Flask_App_9"
+    ports:
+      - "5008:5008"
+
 
   project04:
     build: ./project04/project04/app
@@ -7,13 +49,13 @@ services:
     depends_on:
       - db
     ports:
-      - "5000:5000"
+      - "8081:8081"
 
   db:
       image: mysql:5.7
       container_name: "MySQL_Database"
       ports:
-        - "33000:3306"
+        - "32000"
       environment:
         MYSQL_ROOT_PASSWORD: root
       volumes:
