@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Fname</th>
+        <th scope="col">Lname</th>
+        <th scope="col">Address</th>
+        <th scope="col">State</th>
+        <th scope="col">City</th>
+        <th scope="col">ZipCode</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for resident in residents %}
+    <tr>
+        <td><a href="view/{{resident.id}}">{{ resident.Fname }}</a></td>
+        <td>{{ resident.Lname }}</td>
+        <td>{{ resident.Address }}</td>
+        <td>{{ resident.State }}</td>
+        <td>{{ resident.City }}</td>
+        <td>{{ resident.ZipCode }}</td>
+        <td>{{ resident.Email }}</td>
+        <td>{{ resident.Password }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

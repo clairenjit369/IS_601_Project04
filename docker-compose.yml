@@ -2,7 +2,7 @@ version: "2"
 services:
   app:
     build: ./app
-    container_name: "Flask_App"
+    container_name: "Flask_App3"
     ports:
       - "5000:5000"
 
@@ -19,19 +19,19 @@ services:
       - "5002:5002"
 
   app4:
-    build: ./app4
+    build: part04
     container_name: "Flask_App_4"
     ports:
       - "5003:5003"
 
   app5:
-    build: ./app5
+    build: part05
     container_name: "Flask_App_5"
     ports:
       - "5004:5004"
 
   app6:
-    build: ./app6
+    build: part06
     container_name: "Flask_App_6"
     ports:
       - "5005:5005"
@@ -41,3 +41,29 @@ services:
     container_name: "Flask_App_9"
     ports:
       - "5008:5008"
+
+  final:
+    build: ./my-final-project/my_final_project/app
+    container_name: "My_Final_Project"
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+
+  project04:
+    build: ./project04/project04/app
+    container_name: "addressBook"
+    depends_on:
+      - db
+    ports:
+      - "8082:8082"
+
+  db:
+      image: mysql:5.7
+      container_name: "MySQL_Database"
+      ports:
+        - "33000:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+        - ./project04/project04/db:/docker-entrypoint-initdb.d/:ro
